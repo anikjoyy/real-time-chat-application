@@ -5,7 +5,9 @@ import { useCallback, useState } from 'react';
 import { SubmitHandler, FieldValues, useForm } from 'react-hook-form';
 import AuthSocialButton from './AuthSocialButton';
 import { BsGithub, BsGoogle } from 'react-icons/bs';
-import Input from '@/app/components/input/input';
+
+import axios from 'axios';
+import Input from '../../components/input/Input';
 const AuthForm = () => {
   type Variant = 'LOGIN' | 'REGISTER';
   const [variant, setVariant] = useState<Variant>('LOGIN');
@@ -32,6 +34,7 @@ const AuthForm = () => {
     setIsLoading(true);
     if (variant === 'REGISTER') {
       // Register
+      axios.post('/api/register', data);
     }
     if (variant === 'LOGIN') {
       // Login
@@ -96,7 +99,7 @@ const AuthForm = () => {
           {variant === 'LOGIN'
             ? 'New to Messenger?'
             : 'Already have an account?'}
-          <div onClick={toggleVariant} className='undeline cursor-pointer'>
+          <div onClick={toggleVariant} className='underline cursor-pointer'>
             {variant === 'LOGIN' ? 'Create an Account' : 'Log in'}
           </div>
         </div>
